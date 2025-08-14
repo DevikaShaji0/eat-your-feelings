@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Test the newly implemented Gemini AI integration for the 'Eat Your Feelings' website. Test basic health check endpoint and mood-suggestion endpoint with various mood inputs."
+user_problem_statement: "Test the complete 'Eat Your Feelings' website frontend with end-to-end AI integration. Verify landing page navigation, app page functionality, real AI integration with Gemini API, user experience flow, error handling, and responsive design."
 
 backend:
   - task: "Basic Health Check Endpoint"
