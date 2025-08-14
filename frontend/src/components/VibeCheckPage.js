@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Badge } from './ui/badge';
-import { ArrowLeft, Send, Skull, Fire, Zap } from 'lucide-react';
+import { ArrowLeft, Send, Skull, Flame, Zap } from 'lucide-react';
 
 const VibeCheckPage = ({ onBack, onNext, mood, setMood }) => {
   const handleSubmit = () => {
