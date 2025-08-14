@@ -66,7 +66,7 @@ const RealityCheckPage = ({ onBack, onReset, mood }) => {
             Escape (coward) 💀
           </Button>
           <div className="flex items-center space-x-2">
-            <Fire className="h-6 w-6 text-red-400 animate-pulse" />
+            <Flame className="h-6 w-6 text-red-400 animate-pulse" />
             <h1 className="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-pink-400">
               REALITY CHECK 📱💀
             </h1>
