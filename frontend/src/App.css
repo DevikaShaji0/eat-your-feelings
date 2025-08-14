@@ -32,3 +32,27 @@
         transform: rotate(360deg);
     }
 }
+
+/* Custom animations for the app */
+@keyframes slide-in-from-bottom-4 {
+  from {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-in {
+  animation-fill-mode: both;
+}
+
+.slide-in-from-bottom-4 {
+  animation-name: slide-in-from-bottom-4;
+}
+
+.duration-500 {
+  animation-duration: 500ms;
+}
