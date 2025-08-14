@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
-import { ArrowLeft, Skull, Fire, Zap, AlertTriangle } from 'lucide-react';
+import { ArrowLeft, Skull, Flame, Zap, AlertTriangle } from 'lucide-react';
 import axios from 'axios';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
