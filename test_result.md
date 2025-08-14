@@ -309,9 +309,10 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Gemini AI Integration Setup"
-    - "Mood Suggestion Endpoint Testing"
-    - "Error Handling Verification"
+    - "Landing Page Design and Navigation"
+    - "App Page Core UI Components" 
+    - "AI Integration and Response Display"
+    - "User Experience Flow and Navigation"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
