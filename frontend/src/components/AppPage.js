@@ -3,25 +3,44 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Card, CardContent } from './ui/card';
 import { Badge } from './ui/badge';
-import { ChefHat, Heart, Sparkles, ArrowLeft, Send } from 'lucide-react';
-import { mockAIResponse } from '../utils/mock';
+import { ChefHat, Heart, Sparkles, ArrowLeft, Send, AlertCircle } from 'lucide-react';
+import axios from 'axios';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const API = `${BACKEND_URL}/api`;
 
 const AppPage = ({ onBack }) => {
   const [mood, setMood] = useState('');
   const [suggestion, setSuggestion] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleGetSuggestion = async () => {
     if (!mood.trim()) return;
     
     setLoading(true);
+    setError(null);
     
-    // Simulate AI processing time
-    setTimeout(() => {
-      const mockResponse = mockAIResponse(mood);
-      setSuggestion(mockResponse);
+    try {
+      const response = await axios.post(`${API}/mood-suggestion`, {
+        mood: mood.trim()
+      });
+      
+      setSuggestion(response.data);
+    } catch (err) {
+      console.error('Error getting mood suggestion:', err);
+      setError('Oops! Our AI chef is taking a break. Try again in a moment!');
+      
+      // Fallback response for better UX
+      setSuggestion({
+        food: 'Comfort Mac and Cheese',
+        recipe: 'Boil pasta, make cheese sauce with butter and milk, mix together and bake until bubbly.',
+        roast: 'Even our AI is having a moment. But hey, at least mac and cheese never lets you down!',
+        mood: mood
+      });
+    } finally {
       setLoading(false);
-    }, 2000);
+    }
   };
 
   const handleKeyPress = (e) => {
@@ -105,6 +124,14 @@ const AppPage = ({ onBack }) => {
           </div>
         </div>
 
+        {/* Error Message */}
+        {error && (
+          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center text-red-700">
+            <AlertCircle className="h-5 w-5 mr-2 flex-shrink-0" />
+            <span>{error}</span>
+          </div>
+        )}
+
         {/* Results Section */}
         {suggestion && (
           <Card className="shadow-lg border-orange-200 animate-in slide-in-from-bottom-4 duration-500">
@@ -147,6 +174,7 @@ const AppPage = ({ onBack }) => {
                   onClick={() => {
                     setMood('');
                     setSuggestion(null);
+                    setError(null);
                   }}
                   variant="outline"
                   className="border-orange-200 text-orange-600 hover:bg-orange-50"
