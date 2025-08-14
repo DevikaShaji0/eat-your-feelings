@@ -92,7 +92,7 @@ const VibeCheckPage = ({ onBack, onNext, mood, setMood }) => {
           >
             <Send className="mr-3 h-6 w-6" />
             Destroy Me Pls 💀
-            <Fire className="ml-3 h-6 w-6" />
+            <Flame className="ml-3 h-6 w-6" />
           </Button>
         </div>
         
