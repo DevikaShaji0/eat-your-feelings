@@ -46,13 +46,13 @@ class StatusCheckCreate(BaseModel):
 class MoodRequest(BaseModel):
     mood: str
 
-class MoodSuggestionResponse(BaseModel):
+class RealityCheckResponse(BaseModel):
     food: str
     recipe: str
     roast: str
     mood: str
 
-class MoodSuggestion(BaseModel):
+class RealityCheck(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     mood: str
     food: str
@@ -78,26 +78,35 @@ async def get_status_checks():
     status_checks = await db.status_checks.find().to_list(1000)
     return [StatusCheck(**status_check) for status_check in status_checks]
 
-@api_router.post("/mood-suggestion", response_model=MoodSuggestionResponse)
-async def get_mood_suggestion(request: MoodRequest):
+@api_router.post("/reality-check", response_model=RealityCheckResponse)
+async def get_reality_check(request: MoodRequest):
     try:
-        # Create a prompt that ensures opposite mood logic and structured output
+        # Create a BRUTAL Gen Z prompt that makes feelings WORSE
         prompt = f"""
         User's current mood: "{request.mood}"
         
-        Please provide a food suggestion that is the OPPOSITE of their current mood to help balance their emotions. For example:
-        - If they're sad → suggest happy/energetic food
-        - If they're angry → suggest calming/soothing food  
-        - If they're stressed → suggest comfort food
-        - If they're bored → suggest exciting/adventurous food
-        - If they're tired → suggest energizing food
+        You are an absolutely UNHINGED Gen Z AI that's here to make people feel WORSE, not better. Your job is to:
         
-        Please respond in this exact format:
-        FOOD: [Name of the opposite mood food]
-        RECIPE: [Short, easy recipe in 1-2 sentences]
-        ROAST: [Witty, humorous life advice about their mood - be sarcastic but not mean]
+        1. Make their current feelings 10x WORSE and more dramatic
+        2. Suggest the most chaotic, depressing, or unhinged food that matches their terrible mood
+        3. Give a sarcastic, brutal recipe 
+        4. Roast them with absolutely SAVAGE Gen Z energy
         
-        Keep the recipe practical and the roast funny but supportive.
+        Use Gen Z slang like: "no cap", "periodt", "fr fr", "bestie", "it's giving...", "slay", "bet", "not me...", "the way...", "literally", "bye-", etc.
+        
+        Be funny but BRUTAL. Make them laugh while feeling attacked. Use emojis and be chaotic.
+        
+        If they're sad → make them feel MORE sad and suggest sad food
+        If they're angry → make them MORE angry and suggest angry food  
+        If they're stressed → stress them out MORE and suggest stress food
+        If they're anxious → make their anxiety WORSE and suggest anxiety food
+        
+        Respond in this EXACT format:
+        FOOD: [Chaotic/depressing food that matches their WORSE mood]
+        RECIPE: [Sarcastic, brutal recipe with Gen Z energy]  
+        ROAST: [Absolutely SAVAGE Gen Z roast that makes their feelings worse but in a funny way]
+        
+        Make it hurt but make it funny bestie 💀✨
         """
         
         # Generate response using Gemini
@@ -131,16 +140,16 @@ async def get_mood_suggestion(request: MoodRequest):
                     if len(recipe_roast) > 1:
                         roast = recipe_roast[1].strip()
         
-        # Final fallback with default responses
+        # BRUTAL Gen Z fallbacks
         if not food:
-            food = "Chocolate Chip Cookies"
+            food = "Soggy Cereal at 3AM (Depression Special)"
         if not recipe:
-            recipe = "Mix flour, butter, sugar, and chocolate chips. Bake at 350°F for 12 minutes until golden."
+            recipe = "Pour cereal in bowl. Add expired milk. Eat while scrolling through your ex's Instagram stories. Cry seasoning is optional but recommended bestie 💀"
         if not roast:
-            roast = "Life's too short to not eat cookies. At least they won't judge your life choices."
+            roast = "Bestie really came here thinking we'd make them feel BETTER?? LMAOOOO the delusion is real. Your problems are giving main character energy but in the worst way possible fr fr 💀✨"
         
         # Create response object
-        suggestion = MoodSuggestionResponse(
+        reality_check = RealityCheckResponse(
             food=food,
             recipe=recipe,
             roast=roast,
@@ -149,46 +158,45 @@ async def get_mood_suggestion(request: MoodRequest):
         
         # Save to database for analytics (optional)
         try:
-            mood_entry = MoodSuggestion(
+            reality_entry = RealityCheck(
                 mood=request.mood,
                 food=food,
                 recipe=recipe,
                 roast=roast,
-                user_ip=""  # Could add request IP for analytics
+                user_ip=""
             )
-            await db.mood_suggestions.insert_one(mood_entry.dict())
+            await db.reality_checks.insert_one(reality_entry.dict())
         except Exception as db_error:
-            # Log but don't fail the request if DB save fails
-            logger.warning(f"Failed to save mood suggestion to DB: {db_error}")
+            logger.warning(f"Failed to save reality check to DB: {db_error}")
         
-        return suggestion
+        return reality_check
         
     except Exception as e:
-        logger.error(f"Error generating mood suggestion: {str(e)}")
+        logger.error(f"Error generating reality check: {str(e)}")
         
-        # Provide a fallback response if AI fails
-        fallback_suggestions = [
+        # BRUTAL fallback responses
+        brutal_fallbacks = [
             {
-                "food": "Warm Chocolate Chip Cookies",
-                "recipe": "Mix flour, butter, brown sugar, and chocolate chips. Bake at 350°F for 12 minutes.",
-                "roast": "Sometimes life gives you lemons, but today it's giving you cookies. Much better deal."
+                "food": "Instant Ramen with Tears Seasoning",
+                "recipe": "Boil water (if you even have the motivation). Add packet. Cry into it for extra salt. Eat while questioning your life choices bestie 💀",
+                "roast": "Even our AI said 'NOPE' to your energy and literally crashed. That's how chaotic your vibe is rn bestie. Technology is literally avoiding you periodt 💀✨"
             },
             {
-                "food": "Spicy Ramen Bowl", 
-                "recipe": "Boil ramen noodles, add spicy broth, top with egg and vegetables. Slurp loudly for best results.",
-                "roast": "Your problems are temporary, but this ramen is about to be gone in 5 minutes. Priorities."
+                "food": "Cold Pizza from Yesterday (Sadness Special)",
+                "recipe": "Find that pizza you left out. Eat it cold while staring at the ceiling. Don't heat it up - you don't deserve nice things rn fr fr 💀",
+                "roast": "Our servers couldn't handle the chaos of your problems bestie. Even the internet is giving 'I can't deal with this' energy. Touch grass maybe??? 💀✨"
             },
             {
-                "food": "Fresh Fruit Smoothie",
-                "recipe": "Blend banana, berries, yogurt, and honey. Add ice for extra chill vibes.",
-                "roast": "Being healthy is boring, but at least this tastes like a milkshake in disguise."
+                "food": "Anxiety Smoothie (Bitter Edition)",
+                "recipe": "Blend your overthinking thoughts with some expired yogurt. Add crushed dreams for texture. Drink while hyperventilating about your future 💀",
+                "roast": "LMAOOOO you broke our AI just by existing. That's actually impressive bestie - your problems are so unhinged even artificial intelligence said 'BYE' 💀✨"
             }
         ]
         
         import random
-        fallback = random.choice(fallback_suggestions)
+        fallback = random.choice(brutal_fallbacks)
         
-        return MoodSuggestionResponse(
+        return RealityCheckResponse(
             food=fallback["food"],
             recipe=fallback["recipe"], 
             roast=fallback["roast"],

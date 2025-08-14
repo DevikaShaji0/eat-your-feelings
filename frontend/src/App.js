@@ -1,19 +1,34 @@
 import React, { useState } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LandingPage from "./components/LandingPage";
-import AppPage from "./components/AppPage";
+import HomePage from "./components/HomePage";
+import VibeCheckPage from "./components/VibeCheckPage";
+import RealityCheckPage from "./components/RealityCheckPage";
 import { Toaster } from "./components/ui/sonner";
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('landing');
+  const [currentPage, setCurrentPage] = useState('home');
+  const [mood, setMood] = useState('');
 
-  const handleStart = () => {
-    setCurrentPage('app');
+  const handleNext = () => {
+    if (currentPage === 'home') {
+      setCurrentPage('vibecheck');
+    } else if (currentPage === 'vibecheck') {
+      setCurrentPage('realitycheck');
+    }
   };
 
   const handleBack = () => {
-    setCurrentPage('landing');
+    if (currentPage === 'realitycheck') {
+      setCurrentPage('vibecheck');
+    } else if (currentPage === 'vibecheck') {
+      setCurrentPage('home');
+    }
+  };
+
+  const handleReset = () => {
+    setMood('');
+    setCurrentPage('vibecheck');
   };
 
   return (
@@ -22,10 +37,23 @@ function App() {
         <Routes>
           <Route path="/" element={
             <div>
-              {currentPage === 'landing' ? (
-                <LandingPage onStart={handleStart} />
-              ) : (
-                <AppPage onBack={handleBack} />
+              {currentPage === 'home' && (
+                <HomePage onNext={handleNext} />
+              )}
+              {currentPage === 'vibecheck' && (
+                <VibeCheckPage 
+                  onBack={handleBack}
+                  onNext={handleNext}
+                  mood={mood}
+                  setMood={setMood}
+                />
+              )}
+              {currentPage === 'realitycheck' && (
+                <RealityCheckPage 
+                  onBack={handleBack}
+                  onReset={handleReset}
+                  mood={mood}
+                />
               )}
             </div>
           } />
