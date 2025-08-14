@@ -104,11 +104,11 @@ const RealityCheckPage = ({ onBack, onReset, mood }) => {
             <Card className="bg-gradient-to-r from-red-900/80 to-pink-900/80 border-2 border-red-500/50 shadow-2xl backdrop-blur-sm">
               <CardContent className="p-8 text-center">
                 <div className="flex items-center justify-center space-x-2 mb-4">
-                  <Fire className="h-8 w-8 text-red-400" />
+                  <Flame className="h-8 w-8 text-red-400" />
                   <h2 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-pink-400">
                     REALITY CHECK SERVED 💀
                   </h2>
-                  <Fire className="h-8 w-8 text-red-400" />
+                  <Flame className="h-8 w-8 text-red-400" />
                 </div>
                 <p className="text-xl text-pink-300 font-bold">
                   Bestie... this is about to HIT DIFFERENT 📱💀
