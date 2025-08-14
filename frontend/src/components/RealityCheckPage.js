@@ -133,7 +133,7 @@ const RealityCheckPage = ({ onBack, onReset, mood }) => {
                 {/* Sarcastic Recipe */}
                 <div className="mb-6 p-6 bg-gradient-to-r from-purple-900/50 to-pink-900/50 rounded-2xl border border-purple-500/30">
                   <h4 className="font-black text-purple-300 mb-3 text-lg flex items-center">
-                    <Fire className="h-5 w-5 mr-2" />
+                    <Flame className="h-5 w-5 mr-2" />
                     Recipe (if you can even handle it) 💀
                   </h4>
                   <p className="text-purple-200 leading-relaxed font-medium">
