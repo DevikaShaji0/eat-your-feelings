@@ -25,7 +25,7 @@ if not gemini_api_key:
     raise ValueError("GEMINI_API_KEY environment variable is required")
 
 genai.configure(api_key=gemini_api_key)
-model = genai.GenerativeModel('gemini-pro')
+model = genai.GenerativeModel('gemini-2.5-flash')
 
 # Create the main app without a prefix
 app = FastAPI()
