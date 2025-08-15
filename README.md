@@ -34,3 +34,14 @@ and occasionally suggests food to cope — because nothing says “healing” li
 
 **Disclaimer:** Side effects may include emotional resilience, laughter, hunger,  
 and an uncontrollable urge to text your ex “touch grass.”  
+
+installations
+emergent
+gemini api
+
+run
+open the webiste enter the input youll get the output
+
+project documentation
+
+
