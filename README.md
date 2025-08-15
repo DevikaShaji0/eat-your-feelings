@@ -46,6 +46,7 @@ project documentation
 
 page 1:https://github.com/DevikaShaji0/eat-your-feelings/blob/main/page1
 page2:https://github.com/DevikaShaji0/eat-your-feelings/blob/main/pag2
+page3:https://github.com/DevikaShaji0/eat-your-feelings/blob/main/page3
 
 
 
