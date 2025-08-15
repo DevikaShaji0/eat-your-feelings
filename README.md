@@ -44,6 +44,9 @@ open the webiste enter the input youll get the output
 
 project documentation
 
+page 1:https://github.com/DevikaShaji0/eat-your-feelings/blob/main/page1
+page2:
+
 
 
 
